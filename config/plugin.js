@@ -6,7 +6,7 @@
 
 module.exports = {
   sequelize: {
-    enable: true,
+    enable: false,
     package: 'egg-sequelize'
   },
   routerPlus: {
@@ -25,7 +25,11 @@ module.exports = {
   },
   // https://github.com/Yanshijie-EL/egg-swagger-doc
   swaggerdoc: {
-    enable: true,
+    enable: false,
     package: 'egg-swagger-doc'
+  },
+  axiosPlus:{
+    enable: true,
+    package: 'egg-axios-plus'
   }
 }

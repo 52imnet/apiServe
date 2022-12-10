@@ -45,7 +45,7 @@ module.exports = app => {
   /**
    * 自定义的应用配置，修改后全局生效
    */
-  // 接口前缀名称，跟随业务系统修改
+    // 接口前缀名称，跟随业务系统修改
   const apiPrefixName = 'api'
   // 接口完整前缀
   const apiPrefix = `/${apiPrefixName}`
@@ -57,13 +57,13 @@ module.exports = app => {
     // 默认的 code 码和错误提示信息配置，只需要改这一个地方即可
     resCode: {
       // 服务器异常的 code 标识和提示，一般都不需要改
-      serverError: { code: 500, message: '服务器异常' },
+      serverError: { code: 500, message: 'service error' },
       // 成功的 code 标识
       success: { code: 0 },
       // 出错的 code 标识和提示
-      error: { code: 602, message: '参数异常' },
+      error: { code: 101, message: 'params error' },
       // 未登录的 code 标识和提示
-      notLogged: { code: 601, message: '请先登录后再操作' }
+      notLogged: { code: 401, message: 'Unauthorized' }
     }
   }
 
@@ -82,14 +82,10 @@ module.exports = app => {
   /**
    * 安全策略配置
    */
-  config.security = {
-    // 关闭 CSRF 攻击防御（伪造用户请求向网站发起恶意请求）
-    // csrf: {
-    //   enable: false
-    // }
-  }
-  // 设置白名单
-  const port = 9001 // 前端端口，跟随实际情况修改
+
+
+    // 设置白名单
+  const port = 7001 // 前端端口，跟随实际情况修改
   const domainWhiteList = [
     ...new Set([
       `http://127.0.0.1:${port}`,
@@ -114,7 +110,9 @@ module.exports = app => {
       `${apiPrefix}/v1/user/mock`,
       `${apiPrefix}/v1/user/login`,
       `${apiPrefix}/v1/user/logout`,
-      `${apiPrefix}/v1/user/phone`
+      `${apiPrefix}/v1/user/phone`,
+      `${apiPrefix}/v1/pay/info`,
+      `${apiPrefix}/v1/pay/callback`
     ]
   }
 
@@ -156,6 +154,24 @@ module.exports = app => {
   config.wechatApp = {
     appId: '',
     secret: ''
+  }
+
+
+  config.security = {
+    // 关闭 CSRF 攻击防御（伪造用户请求向网站发起恶意请求）
+    csrf: {
+      enable: false
+    }
+  }
+
+
+  config.axiosPlus = {
+    app: true,
+    agent: true
+  }
+
+  config.logger = {
+    level: 'INFO'
   }
 
   return {

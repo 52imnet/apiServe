@@ -9,6 +9,9 @@ module.exports = app => {
 
   // 首页
   router.get('/', controller.home.index)
+
+  router.post('/ask', controller.home.ask2)
+
   // 设置统一的前缀，前缀地址在 config/config.default.js 中配置
   const subRouter = router.namespace(app.config.apiPrefix)
   // 开发环境
