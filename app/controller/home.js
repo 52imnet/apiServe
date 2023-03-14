@@ -24,24 +24,25 @@ class HomeController extends Controller {
 
     const req = {
       // model: 'text-curie-001',
-      model: 'text-davinci-003',
-      prompt: message,
-      max_tokens: 1700,
-      temperature: 0
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: message }
+      ]
+      // max_tokens: 1700,
+      // temperature: 0
     }
 
     console.log('req ask2===', req)
 
     let text = ''
-    const result = await axios.post('https://api.openai.com/v1/completions', req, {
+    const result = await axios.post('https://api.openai.com/v1/chat/completions', req, {
       timeout: 300000,
-      headers: { Authorization: 'Bearer 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' }
+      headers: { Authorization: 'Bearer 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' }
     })
       .then(rsp => {
-        console.log('pdf file result', rsp)
+        console.log('pdf file result', JSON.stringify(rsp))
 
         if (rsp.choices) {
-          text = rsp.choices[0].text
+          text = rsp.choices[0].message
         }
       })
       .catch(err => {
