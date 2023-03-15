@@ -12,7 +12,7 @@ class HomeController extends Controller {
 
     const { request, helper, axios, logger } = this.ctx
 
-    const { message, source } = request.body
+    const { message, source, key } = request.body
 
     logger.info('requset body===', request.body)
 
@@ -33,10 +33,13 @@ class HomeController extends Controller {
 
     console.log('req ask2===', req)
 
+    const sk = `Bearer ${key}`
+    console.log('sktoken= ', sk)
+
     let text = ''
     const result = await axios.post('https://api.openai.com/v1/chat/completions', req, {
       timeout: 300000,
-      headers: { Authorization: 'Bearer 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' }
+      headers: { Authorization: sk }
     })
       .then(rsp => {
         console.log('pdf file result', JSON.stringify(rsp))
